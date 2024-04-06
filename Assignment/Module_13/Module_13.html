@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React - Applying Redux</title>
+    <link rel="stylesheet" href="assest/styleFile/style.css">
+    <link rel="shortcut icon" href="assest/images/favicon.png" type="image/x-icon">
+
+</head>
+
+<body>
+    <!-- === container Start ===  -->
+    <div class="container">
+
+        <!-- === logo ===  -->
+        <div id="img">
+            <img src="assest/images/react.js-logo.png" class="img-logo" alt="ReactJS-LOGO" srcset="">
+        </div>
+
+        <!-- === question-1 START === -->
+        <div class="question-1">
+            <h2>Q. 1 What is Redux?</h2>
+
+            <h3>React Redux</h3>
+
+            <p> Redux is a free and open-source JavaScript library for managing application state. The user interface in
+                React is built with Redux. Dan Abramov and Andrew Clark were the first to launch it in 2015.
+            </p>
+            <p> React Redux is the official React Redux binding. It enables React components to read data from a Redux
+                Store and send Actions to the Store in order to update data. Redux aids app scaling by providing a
+                logical mechanism to manage state via a unidirectional data flow model. React Redux is fundamentally
+                straightforward. It subscribes to the Redux store, checks to see if the data your component requires has
+                changed, and then re-renders your component.
+            </p>
+            <p> Flux influenced Redux. Redux researched the Flux architecture and eliminated superfluous complexity.
+            </p>
+
+            <ul>
+                <li>Redux lacks the Dispatcher idea.</li>
+                <li>Redux only has one store, whereas Flux has several.</li>
+                <li>Store will receive and handle the Action objects directly.</li>
+            </ul>
+
+            <h3>Why should you use React Redux?</h3>
+
+            <p>The primary reasons for using React Redux are:</p>
+
+            <ul>
+                <li> The official UI bindings for react applications are React Redux. It is kept up to date with any API
+                    updates to ensure that your React components behave normally.
+                </li>
+                <li>It promotes 'React' architecture.</li>
+                <li> It performs various performance optimizations inside, allowing components to re-render just when
+                    necessary.
+                </li>
+            </ul>
+
+            <h3>Redux Architecture</h3>
+
+            <img src="https://static.javatpoint.com/tutorial/reactjs/images/react-redux-architecture.png" alt="img" />
+
+            <p>The components of the Redux architecture are described further below.</p>
+
+            <p> <strong> STORE: </strong> A Store is a location where you can see the current state of your application.
+                It manages the application's state and has a dispatch(action) method. It functions as the brain for all
+                moving parts of Redux.
+            </p>
+
+            <p> <strong> ACTION:</strong> An action is a payload that is sent or dispatched from the view. Reducers can
+                read it. It is a simple object designed to store information about the user's event. It contains
+                information such as the type of action, the time of occurrence, the location of occurrence, its
+                coordinates, and the state that it seeks to modify.
+            </p>
+
+            <p>
+                <strong>Reducer :</strong>reads the payloads from the actions and then updates the store via the state.
+                To return is a pure function.
+            </p>
+
+            <h3>Installation Redux</h3>
+
+            <p>
+                <strong>Requirements:</strong>React Redux requires React 16.8.3 or a later version.
+            </p>
+
+            <p>
+                Install the following command to utilize React Redux with a React application.
+            </p>
+
+            <div>
+                <p>$ npm install redux react-redux --save</p>
+            </div>
+
+            <img src="https://static.javatpoint.com/tutorial/reactjs/images/react-redux-installation.png" alt="img" />
+
+        </div>
+        <!-- === question-1 END === -->
+        <!-- === question-2 START === -->
+        <div class="question-2">
+            <h2>Q. 2 What is Redux Thunk used for?</h2>
+
+            <p>
+                Redux Thunk is middleware that allows you to return functions from Redux
+                rather than just actions. This enables delayed activities, such as working
+                with promises.
+            </p>
+
+            <p>
+                One of the main applications for this middleware is to handle asynchronous
+                actions, such as utilizing axios to submit a GET request. We can use Redux
+                Thunk to dispatch those actions asynchronously and resolve each promise
+                that is returned.
+            </p>
+
+            <h3>Installation and Configuration</h3>
+
+            <p>
+                Redux Thunk may be installed from the command line using npm install
+                redux-thunk --save or yarn add redux-thunk.
+            </p>
+
+            <p>
+                Because it is a Redux utility, you must also have Redux installed. It is
+                activated after installation by calling applyMiddleware():
+            </p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>
+                        import { createStore, applyMiddleware } from 'redux'; <br />
+                        import thunk from 'redux-thunk'; <br />
+                        import rootReducer from './reducers/index'; <br />
+                        <br />
+                        const store = createStore( <br />
+                        rootReducer, <br />
+                        applyMiddleware(thunk) <br />
+                        );
+                    </code>
+                </div>
+            </div>
+
+                <h3>How to Make Use of Redux Thunk</h3>
+
+                <p>
+                    After installing Redux Thunk and include it in your project with
+                    applyMiddleware(thunk), you can begin dispatching actions
+                    asynchronously.
+                </p>
+
+                <p>Here's an example of a simple increment counter:</p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>
+                        const INCREMENT_COUNTER = 'INCREMENT_COUNTER'; <br />
+                        <br />
+                        function increment() { <br />
+                        return { <br />
+                        type: INCREMENT_COUNTER <br />
+                        }; <br />
+                        } <br />
+                        <br />
+                        function incrementAsync() { <br />
+                        return dispatch => { <br />
+                        setTimeout(() => { <br />
+                        // You can invoke sync or async actions with `dispatch` <br />
+                        dispatch(increment()); <br />
+                        }, 1000); <br />
+                        }; <br />
+                        }
+                    </code>
+                </div>
+            </div>
+
+            <p>
+                Here's how to configure success and failure behaviors after polling an
+                API:
+            </p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>
+                        const GET_CURRENT_USER = 'GET_CURRENT_USER'; <br />
+                        const GET_CURRENT_USER_SUCCESS = 'GET_CURRENT_USER_SUCCESS'; <br />
+                        const GET_CURRENT_USER_FAILURE = 'GET_CURRENT_USER_FAILURE'; <br />
+                        <br />
+                        const getUser = () => { <br />
+                        return (dispatch) => { //nameless functions <br />
+                        // Initial action dispatched <br />
+                        dispatch({ type: GET_CURRENT_USER }); <br />
+                        // Return promise with success and failure actions <br />
+                        return axios.get('/api/auth/user').then( <br />
+                        user => dispatch({ type: GET_CURRENT_USER_SUCCESS, user }), <br />
+                        err => dispatch({ type: GET_CURRENT_USER_FAILURE, err }) <br />
+                        ); <br />
+                        }; <br />
+                        };
+                    </code>
+                </div>
+            </div>
+        </div>
+        <!-- === question-2 END === -->
+        <!-- === question-3 START === -->
+        <div class="question-3">
+            <h2>
+                Q. 3 What is Pure Component? When to use Pure Component over Component?
+            </h2>
+
+            <p>
+                A component is a fundamental building part in React. In other words, every
+                application you create in React will be built up of bits known as
+                components. However, React has two kinds of Components:
+            </p>
+
+            <p>
+                <strong>1. React.PureComponent:</strong> It is one of the most important
+                methods for optimizing React apps. There is no need for the
+                shouldComponentUpdate() Lifecycle Method when utilizing the pure component
+                because the ReactJS Pure Component Class checks existing state and props
+                with new props and states to determine if the component should re-render
+                or not.
+            </p>
+            <p>
+                <strong>2. React.Component:</strong>However, React.Component re-renders
+                itself whenever the props supplied to it change, the parent component
+                re-renders, or the shouldComponentUpdate() method is triggered. The React
+                application is not optimized. They are simple and quick to construct, and
+                they are ideal for very small UI views where a re-render would be
+                insignificant. They offer clearer code and fewer files to manage.
+            </p>
+
+            <p><strong>When should you use React.PureComponent?</strong></p>
+
+            <p>
+                You have the option of using React.If any of the following circumstances
+                are met, PureComponent will be preferred over React.Component:
+            </p>
+
+            <ul>
+                <li>The state/properties object should be immutable.</li>
+                <li>There should be no hierarchy between states and properties.</li>
+                <li>When data changes, you should call forceUpdate().</li>
+            </ul>
+
+            <h3>Making a React Application:</h3>
+
+            <p>
+                <strong> Step 1: </strong>Run the following command to create a React
+                application:
+            </p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>npx create-react-app functiondemo</code>
+                </div>
+            </div>
+
+            <p>
+                <strong> Step 2: </strong> After creating your project folder, i.e.
+                functiondemo, use the following command to navigate to it:
+            </p>
+            <div class="example">
+                <div class="example-code">
+                    <code>cd functiondemo</code>
+                </div>
+            </div>
+
+            <p><strong>Project Structure:</strong> It will look like the following.</p>
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20201212224551/ProjectStructure.png"
+                alt="img" />
+
+            <p>
+                <strong>In this example</strong>, we will create a name color application
+                that changes the text color when the component is presented in the DOM
+                tree.
+            </p>
+            <p>
+                <strong>App.js:</strong> Add the following code to the App.js file. App is
+                our default component, and that is where we have written our code.
+            </p>
+            <p><strong>React.Component usage:</strong></p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>import React from 'react'; <br>
+        
+                        class Comp1 extends React.Component { <br>
+                        render() { <br>
+                        console.log('Child Component is called'); <br>
+                        return
+                    <h1>{this.props.value}</h1>; <br>
+                    } <br>
+                    } <br>
+                    <br>
+                    class App extends React.Component { <br>
+                    state = { color: 'black' }; <br>
+                    render() { <br>
+                    return ( <br>
+                    &lt;div style={{ color: this.state.color }}&gt; <br>
+                    &lt;Comp1 value="Rahul" /&gt; <br>
+                    &lt;button onClick={() => this.setState({ color: 'green' })}> <br>
+                    Change Color <br>
+                    &lt;/button&gt; <br>
+                    &lt;/div&gt; <br>
+                    ); <br>
+                    } <br>
+                    } <br>
+                    export default App; </code>
+                </div>
+            </div>
+
+            <p><strong>Steps for Running the Application:</strong> Run the program from the project's root directory by
+                issuing the following command:
+            </p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>npm start</code>
+                </div>
+            </div>
+
+            <p><strong>Output:</strong>Now, open your browser and navigate to http://localhost:3000/; you should see the
+                following output:
+            </p>
+
+
+            <div>
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20210120235918/ezgifcomgifmaker.gif"
+                    alt="img" />
+            </div>
+
+            <h3>Making use of React.PureComponent:
+            </h3>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>
+                        import React from 'react'; <br>
+                        <br>
+                        class Comp1 extends React.PureComponent { <br>
+                        render() { <br>
+                        console.log('Child Component is called'); <br>
+                        return
+                    <h1>{this.props.value}</h1>; <br>
+                    }
+                    }
+                    <br>
+                    class App extends React.Component { <br>
+                    state = { color: 'black' }; <br>
+                    render() { <br>
+                    return ( <br>
+                    &lt;div style={{ color: this.state.color }}&gt; <br>
+                    &lt;Comp1 value="Rahul" /&gt; <br>
+                    &lt;button onClick={() => this.setState({ color: 'green' })}&gt; <br>
+                    Change Color <br>
+                    &lt;/button&gt; <br>
+                    &lt;/div&gt; <br>
+                    ); <br>
+                    } <br>
+                    } <br>
+                    export default App; </code>
+                </div>
+            </div>
+
+            <p><strong>Steps for Running the Application:
+                </strong>Run the program from the project's root directory by issuing the following command:</p>
+
+            <div>
+                <p>npm start</p>
+            </div>
+
+            <p><strong>Output:</strong>Now, open your browser and navigate to http://localhost:3000/; you should see the
+                following output:
+            </p>
+
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20210120235936/ezgifcomgifmaker1.gif"
+                alt="img">
+
+
+        </div>
+        <!-- === question-3 END === -->
+        <!-- === question-4 START === -->
+        <div class="question-4">
+            <h2>Q. 4 What is the second argument that can optionally be passed tosetState and what is
+                its purpose?</h2>
+
+            <h3>In React.js, use the Optional Second Parameter of setState.
+            </h3>
+
+            <p>Functions in my code that relied on a state would render with an earlier state rather than the updated one. This is due to the fact that setState is asynchronous. If I tried to console.log() a state before and after changing it, I would wind up logging the prior state. Assume that the value of event.target.value was 'hooray' and that the remainder of the App Component was properly configured in the following code snippet:
+            </p>
+
+            <h3>Example 1:</h3>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>
+                        class App extends Component { <br>
+                        this.state = { <br>
+                        sampleItem: 'test', <br>
+                        } <br>
+                        handleChange = (event) => { <br>
+                        <br>
+                        console.log(this.state.sampleItem) // step 1 <br>
+                        <br>
+                        this.setState({ <br>
+                        sampleItem: event.target.value // step 2 <br>
+                        }) <br>
+    
+                        console.log(this.state.sampleItem) // step 3 <br>
+                        };
+                    </code>
+                </div>
+            </div>
+
+
+            <p>This code would generate the following output:</p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>test <br>
+                        test</code>
+                </div>
+            </div>
+
+            <p>Again, this is due to the fact that setState is asynchronous. When handleChange is called in response to
+                an event, steps 1 and 3 occur before the state may be altered in step 2. Because sampleItem hasn't been
+                updated from 'test' to 'hooray' yet, 'test' is printed twice. </p>
+
+            <p>To address this issue, we may provide setState with an optional second parameter that is a callback
+                function. This function is called immediately after setState completes setting a new state. If we
+                rearrange our code as follows:</p>
+
+            <h3>Example 2:</h3>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>
+                        class App extends Component { <br>
+                        this.state = { <br>
+                        sampleItem: 'test', <br>
+                        } <br>
+                        handleChange = (event) => { <br>
+                        <br>
+                        console.log(this.state.sampleItem) // step 1 <br>
+                        <br>
+                        this.setState({ <br>
+                        sampleItem: event.target.value // step 2 <br>
+                        }, () => console.log(this.state.sampleItem)) // step 3 <br>
+                        }; <br>
+                    </code>
+                </div>
+            </div>
+
+            <p>We get the desired outcome printed out:
+            </p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>test <br>
+                        hooray</code>
+                </div>
+            </div>
+
+            <p>As the optional second parameter in Example 2, I used an anonymous arrow function. This anonymous
+                function is invoked immediately after setState completes setting the new state to 'hooray' and prints
+                out the new state.
+            </p>
+
+            <p> This solves the asynchronous nature of setState. Rather than merely printing out a new state, we could
+                easily construct a more complicated callback function that makes use of our new state. So, in Example 2,
+                step 3 may look like this:</p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>() => SomeComplexCallbackFunction(this.state.sampleItem)
+                    </code>
+                </div>
+            </div>
+
+            <p>This enables us to conduct actions quickly following a state change and be confident that whatever data
+                we return will use the most recent state.
+            </p>
+
+        </div>
+        <!-- === question-4 END === -->
+        <!-- === question-5 START === -->
+        <div class="question-5">
+            <h2>Q. 5 Create a Table and Search data from table using React Js?</h2>
+
+        </div>
+        <!-- === question-5 END === -->
+        <!-- === question-6 START === -->
+        <div class="question-6">
+            <h2>Q.6 Create Login registration with CRUD Application using API (Redux)its purpose?</h2>
+
+            <h3>Contents </h3>
+            <ol>
+                <li> Setup </li>
+                <li>Adding users from the state</li>
+                <li> Creating a new user</li>
+                <li> Changing a user's information</li>
+                <li>removing a user</li>
+                <li> Asynchronously loading new users</li>
+            </ol>
+
+            <h3>React Context API vs. Redux & useReducer
+            </h3>
+
+            <h3>Benefits of Redux
+            </h3>
+
+            <p>Why would you add another library for state management? I thought React already managed the state? That
+                is correct, but imagine you have multiple components and pages, each of which must fetch data from
+                various APIs and data sources and manage the state of how the user interacts with that data and the
+                interface. Your app's state can quickly devolve into chaos. The following are the primary advantages
+                that I have discovered:
+            </p>
+
+            <ul>
+                <li>Redux stores all of the state in one store, the single source of truth.</li>
+                <li> Predictable: Because your program uses a single store, syncing your current state and actions with
+                    other portions of your app is simple.</li>
+                <li>Maintainability: Your code will be easier to maintain because Redux provides explicit standards on
+                    how to structure it.
+                </li>
+            </ul>
+
+            <h3>1. Setup</h3>
+
+            <p>Let's begin by making a new React app with the default settings: <span>$ npx create-react-app
+                    redux-crud-app</span></p>
+
+            <p>To begin, remove all files except App.js and index.js from the /src folder. Clear out App.js and just
+                return one word for the time being. <span>$ npm run start</span> will launch the app.</p>
+
+            <h3>2. Adding users from the state</h3>
+            <h3>3. Creating a new user</h3>
+            <h3>4. Changing a user's information</h3>
+            <h3>5. removing a user</h3>
+            <h3>6. Asynchronously loading new users</h3>
+
+
+            <h3>App.js</h3>
+
+
+            <div class="example">
+                <div class="example-code">
+                    <code>
+                        function App() { <br>
+                        return ( <br>
+                        &lt;h1&gt;Hi&lt;/h1&gt; <br>
+                        ); <br>
+                        } <br>
+                        <br>
+                        export default App;
+                    </code>
+                </div>
+            </div>
+
+            <p>Let's include a small CSS library to make our app appear great. For this article, I'll be using Skeleton
+                CSS. Simply add the following line before the closing tag to index.html:</p>
+            <span>&lt;link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" /&gt;</span>
+
+
+            <p>On your localhost, the text should now be formatted. As a development dependency, let's install the
+                standard React router package to handle our various pages:</p>
+
+            <span>$ npm install react-router-dom --save
+            </span>
+
+
+
+            <h3>App.js</h3>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>import { Route, BrowserRouter as Router, Switch } from "react-router-dom"; <br>
+                        <br>
+                        import React from "react"; <br>
+                        import { UserList } from "./features/users/UserList"; <br>
+                        <br>
+                        export default function App() { <br>
+                        return ( <br>
+                        &lt;Router&gt; <br>
+                        &lt;div&gt; <br>
+                        &lt;Switch&gt; <br>
+                        &lt;Route path="/"&gt; <br>
+                        &lt;UserList /&gt; <br>
+                        &lt;/Route&gt; <br>
+                        &lt;Route path="/add-user"&gt; <br>
+                        &lt;h1&gt;Add user&lt;/h1&gt; <br>
+                        &lt;/Route&gt; <br>
+                        &lt;Route path="/edit-user"&gt; <br>
+                        &lt;h1&gt;Edit user&lt;/h1&gt; <br>
+                        &lt;/Route&gt; <br>
+                        &lt;/Switch&gt; <br>
+                        &lt;/div&gt; <br>
+                        &lt;/Router&gt; <br>
+                        ); <br>
+                        }
+                    </code>
+                </div>
+            </div>
+
+            <p>And add a the UsersList component for the layout:</p>
+
+            <h3>2. Loading users from state</h3>
+
+            <p>First we have to add the redux store to our application. Let's install react-redux and the redux toolkit:
+            </p>
+            <span> $ npm install @reduxjs/toolkit react-redux --save</span>
+
+            <p> Then create a file store.js with the following code:</p>
+
+            <h3>store.js</h3>
+
+            <div>
+                <p>
+                    import { configureStore } from "@reduxjs/toolkit"; <br>
+                    <br>
+                    export default configureStore({<br>
+                    reducer: {},<br>
+                    });<br>
+                </p>
+            </div>
+
+            <p>We'll add Redux functions later to alter the state (reducers) here. We must now wrap our application
+                within the store using Redux's provider wrapper:</p>
+
+            <h3>index.js</h3>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>
+                        import App from "./App"; <br>
+                        import { Provider } from "react-redux"; <br>
+                        import React from "react"; <br>
+                        import ReactDOM from "react-dom"; <br>
+                        import store from "./store"; <br>
+                        <br>
+                        ReactDOM.render( <br>
+                        &lt;Provider store={store}&gt; <br>
+                        &lt;App /&gt; <br>
+                        &lt;/Provider&gt;, <br>
+                        document.getElementById("root") <br>
+                        ); <br>
+                    </code>
+                </div>
+            </div>
+
+            <p>Next, let's create the redux state and populate it with our users. Then, within our UserList component,
+                we'll retrieve this state.
+            </p>
+
+            <h3>3. Adding a new user</h3>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>import { useState } from "react"; <br>
+                        <br>
+                        export function AddUser() { <br>
+                        const [name, setName] = useState(""); <br>
+                        const [email, setEmail] = useState(""); <br>
+                        <br>
+                        const handleName = (e) => setName(e.target.value); <br>
+                        const handleEmail = (e) => setEmail(e.target.value); <br>
+                        <br>
+                        return ( <br>
+                        &lt;div className="container"&gt; <br>
+                        &lt;div className="row"&gt; <br>
+                        &lt;h1&gt;Add user&lt;/h1&gt; <br>
+                        &lt;/div&gt; <br>
+                        &lt;div className="row"&gt; <br>
+                        &lt;div className="three columns"&gt; <br>
+                        &lt;label for="nameInput"&gt; Name &lt;/label&gt; <br>
+                        &lt;input <br>
+                        className="u-full-width" <br>
+                        type="text" <br>
+                        placeholder="test@mailbox.com" <br>
+                        id="nameInput" <br>
+                        onChange={handleName} <br>
+                        value={name} <br>
+                        /&gt; <br>
+                        &lt;label for="emailInput">Email&lt;/label&gt; <br>
+                        &lt;input <br>
+                        className="u-full-width" <br>
+                        type="email" <br>
+                        placeholder="test@mailbox.com" <br>
+                        id="emailInput" <br>
+                        onChange={handleEmail} <br>
+                        value={email} <br>
+                        /&gt; <br>
+                        &lt;button className="button-primary">Add user&lt;/button&gt; <br>
+                        &lt;/div&gt; <br>
+                        &lt;/div&gt; <br>
+                        &lt;/div&gt; <br>
+                        ); <br>
+                        }
+                    </code>
+                </div>
+            </div>
+
+            <p>We want to add the user to the state and return the user to the UserList component when they submit. If
+                something goes wrong, we'll display an error message. </p>
+
+            <p>To begin, we will add a method/function to our Redux user slice. This method, which Redux refers to as a
+                reducer, is used to change the state. Inside reducers, our function receives the user state and the
+                action, in this case the user form field values.</p>
+
+            <p>Redux generates an action for us to use when using this function.</p>
+
+
+            <h3> 4. Editing a user</h3>
+
+            <p>To edit a user, we'll first link our edit button to the dynamic /edit-user/id page within our UserList
+                component:
+            </p>
+
+            <div class="example">
+                <div class="example-code">
+                    &lt;p&gt;&lt;Link to={`/edit-user/${id}`}&gt; <br>
+                    &lt;button&gt;Edit&lt;/button&gt; <br>
+                    &lt;/Link&gt;&lt;/p&gt; <br>
+                </div>
+            </div>
+
+            <p>The new reducer will then be added to our Redux slice. It will look for the user in our state and update
+                it if one exists.
+            </p>
+
+            <h3>usersSlice.js</h3>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>
+                        const usersSlice = createSlice({ <br>
+                        name: "users", <br>
+                        initialState, <br>
+                        reducers: { <br>
+                        userAdded(state, action) { <br>
+                        state.push(action.payload); <br>
+                        }, <br>
+                        userUpdated(state, action) { <br>
+                        const { id, name, email } = action.payload; <br>
+                        const existingUser = state.find((user) => user.id === id); <br>
+                        if (existingUser) { <br>
+                        existingUser.name = name; <br>
+                        existingUser.email = email; <br>
+                        } <br>
+                        }, <br>
+                        }, <br>
+                        }); <br>
+                    </code>
+                </div>
+            </div>
+
+            <p>Our EditUser.jsx file will look quite similar to AddUser.jsx, except that now we utilize the useLocation
+                hook from react-router-dom to get the user id from the URL path:
+            </p>
+
+            <h3> 5. Deleting a user</h3>
+
+            <p>I'd like to invite you to solve this one for yourself! It will be a good exercise to put what we've
+                learnt so far into practice. </p>
+
+            <p>My answer for the reducer is as follows:</p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>userDeleted(state, action) { <br>
+                        const { id } = action.payload; <br>
+                        const existingUser = state.find((user) => user.id === id); <br>
+                        if (existingUser) { <br>
+                        return state.filter((user) => user.id !== id); <br>
+                        } <br>
+                        },</code>
+                </div>
+            </div>
+
+            <h3>6. Loading new users asynchronously</h3>
+
+            <p>Warning: the following section is a little more difficult but extremely beneficial to understand!</p>
+
+            <p> A useful feature would be the ability to import users from an external API. We'll make advantage of this
+                free one: https://jsonplaceholder.typicode.com/users.
+            </p>
+
+            <p> Only synchronous code is executed by Redux. To handle async code, it was most popular to utilize a
+                redux-thunk, which is simply a basic function that accepts async code as actions.</p>
+
+            <p> Redux now provides a built-in capability for adding async code. Many tutorials still require
+                redux-thunk, however redux's new configureStore function already includes this.</p>
+
+            <p> Let us now include the API fetch in our usersSlice:</p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>export const fetchUsers = createAsyncThunk("fetchUsers", async () => { <br>
+                        const response = await fetch("https://jsonplaceholder.typicode.com/users"); <br>
+                        const users = await response.json(); <br>
+                        return users;
+                        });</code>
+                </div>
+            </div>
+
+            <p>Then, within our slice, we'll add a property called <span>extraReducers</span>, which will have a couple
+                of functions to handle the API's return:
+            </p>
+
+            <ul>
+                <li>pending </li>
+                <li> fulfilled</li>
+                <li> rejected</li>
+            </ul>
+
+            <p>Our API call returns a Promise, which is an object representing the state of an asynchronous activity, in
+                this case an API call. We'll update our status based on the Promise status.
+            </p>
+
+            <div class="example">
+                <div class="example-code">
+                    <code>const usersSlice = createSlice({ <br>
+                        name: "users", <br>
+                        initialState: { <br>
+                        entities: [], <br>
+                        loading: false, <br>
+                        }, <br>
+                        reducers: { ... }, <br>
+                        extraReducers: { <br>
+                        [fetchUsers.pending]: (state, action) => { <br>
+                        state.loading = true; <br>
+                        }, <br>
+                        [fetchUsers.fulfilled]: (state, action) => { <br>
+                        state.loading = false; <br>
+                        state.entities = [...state.entities, ...action.payload]; <br>
+                        }, <br>
+                        [fetchUsers.rejected]: (state, action) => { <br>
+                        state.loading = false; <br>
+                        }, <br>
+                        }, <br>
+                        });</code>
+                </div>
+            </div>
+
+            <p>This array of users should be retrieved as soon as our program loads and whenever a user clicks the LOAD
+                USERS button.</p>
+            <p> Let's dispatch it before our component inside index to load it as soon as our app loads.js:</p>
+
+            <span>store.dispatch(fetchUsers())</span>
+
+            <p>And to dispatch it on our button:</p>
+
+            <span>onClick={() => dispatch(fetchUsers())}</span>
+
+            <p>That's it! We finished building our CRUD app using React, Redux and Hooks.</p>
+
+        </div>
+        <!-- === question-6 END === -->
+
+    </div>
+</body>
+
+</html>
